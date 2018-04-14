@@ -13,7 +13,7 @@ namespace Lab4ED1.DBConnection
         private static object sync = new Object();
 
         public Dictionary<string, StickerLists> ListadoCromos = new Dictionary<string, StickerLists>();
-        public Dictionary<Sticker, bool> EstadoCromo = new Dictionary<Sticker, bool>();
+        public Dictionary<string, bool> EstadoCromo = new Dictionary<string, bool>();
 
         public static DBConnection getInstance
         {

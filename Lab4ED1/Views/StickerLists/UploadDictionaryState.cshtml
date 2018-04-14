@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "UploadDictionaryState";
+}
+
+<h2>UploadDictionaryState</h2>
+
+@using (Html.BeginForm("UploadDictionaryState", "StickerLists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="form-group">
+        <input type="file" id="dataFile" name="file" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Cargar" class="btn btn-default" />
+    </div>
+
+}
