@@ -144,7 +144,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\JsonFile.cs" />
     <Compile Include="Controllers\StickerListsController.cs" />
-    <Compile Include="Models\Sticker.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBConnection\DBConnection.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +191,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\StickerLists\UploadDictionaryLists.cshtml" />
     <Content Include="Views\StickerLists\UploadDictionaryState.cshtml" />
+    <Content Include="Views\StickerLists\IndexState.cshtml" />
+    <Content Include="Views\StickerLists\Details.cshtml" />
+    <Content Include="Views\StickerLists\DetailsState.cshtml" />
+    <Content Include="Views\StickerLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

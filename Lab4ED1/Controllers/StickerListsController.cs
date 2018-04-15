@@ -13,80 +13,79 @@ namespace Lab4ED1.Controllers
         DBConnection.DBConnection Datos = DBConnection.DBConnection.getInstance;
         
         // GET: StickerLists
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult IndexState()
         {
             return View();
         }
 
         // GET: StickerLists/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: StickerLists/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: StickerLists/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult IndexState(FormCollection collection)
+        {
+            var key = "";
+            if(collection["Pais"].ToUpper() == "ESPECIAL")
+            {
+                key = collection["Pais"] + collection["Numero"];
+                ViewBag.Message = key;
+            } else
+            {
+                key = collection["Pais"] + "_" + collection["Numero"];
+                ViewBag.Message = key;
+
+            }
+            return RedirectToAction(nameof(DetailsState), new { key = key });
+        }
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index (FormCollection collection)
+        {
+            var key = collection["Pais"];
+                return RedirectToAction(nameof(Details), new { key = key });
+            
+        }
+        public ActionResult Details(string key)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+                if (Datos.ListadoCromos.Count != 0)
+                {
+                    var Detalle = Datos.ListadoCromos[key];
+                    ViewBag.Message = key;
+                    View(Detalle);
+                }
                 return View();
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "NO se ha encontrado ningún dato";
+                return RedirectToAction(nameof(Index));
             }
         }
-
-        // GET: StickerLists/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult DetailsState(string key)
         {
-            return View();
-        }
 
-        // POST: StickerLists/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+                if (Datos.EstadoCromo.Count != 0)
+                {
+                    var Detalle = Datos.EstadoCromo[key];
+                    ViewBag.Message = key;
+                    var detail = "El estado de su cromo es: " + "  " +Datos.EstadoCromo[key].ToString();
+                    View((object)detail);
+                }
                 return View();
+
             }
-        }
-
-        // GET: StickerLists/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: StickerLists/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            catch (Exception)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                ViewBag.Message = "NO se ha encontrado ningún dato";
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -110,7 +109,7 @@ namespace Lab4ED1.Controllers
                     var jsonfile = new JsonFile();
 
                       Datos.ListadoCromos = jsonfile.ListRead(file.InputStream);
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
             }
           
@@ -136,11 +135,22 @@ namespace Lab4ED1.Controllers
                     var jsonfile = new JsonFile();
 
                     Datos.EstadoCromo = jsonfile.ListState(file.InputStream);
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(IndexState));
                 }
             }
 
             return View();
+        }
+        public ActionResult ChangeCurrentState(string key)
+        {
+            if(!Datos.EstadoCromo[key])
+            {
+                Datos.EstadoCromo[key] = true;
+            } else
+            {
+                Datos.EstadoCromo[key] = false;
+            }
+            return RedirectToAction(nameof(DetailsState), new {  key });
         }
     }
 }

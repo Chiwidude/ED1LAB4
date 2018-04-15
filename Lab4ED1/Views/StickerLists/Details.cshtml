@@ -1,0 +1,50 @@
+﻿@model Lab4ED1.StickerLists
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Detalle del Equipo buscado:</h2>
+
+<div>
+    <h4>StickerLists</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <p>
+                Coleccionadas:
+            </p>
+            <ul>
+                @for (int i = 0; i < Model.coleccionadas.Count; i++)
+                {
+                    <li> @Model.coleccionadas[i]</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <p>
+                Faltantes:
+            </p>
+            <ul>
+                @for (int i = 0; i < Model.faltantes.Count; i++)
+                {
+                    <li> @Model.faltantes[i]</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <p>
+            Cambios:
+        </p>
+        <ul>
+            @for (int i = 0; i < Model.cambios.Count; i++)
+            {
+                <li> @Model.cambios[i]</li>
+            }
+        </ul>
+    </div>
+</div>
+<p>
+    
+</p>

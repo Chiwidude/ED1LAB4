@@ -1,0 +1,14 @@
+﻿@model string
+@{
+    ViewBag.Title = "DetailsState";
+}
+
+<h2>Estado de Cromo @ViewBag.Message</h2>
+<p>
+    Si se muestra True, ya tiene el cromo<br />
+    Si se muestra False, no tiene el cromo
+</p>
+<p style=" color:springgreen"> @Model</p>
+<p> Si desea cambiar el estado de su cromo por favor haga clic en el siguiente botón</p>
+@Html.ActionLink("Cambiar", "ChangeCurrentState", "StickerLists", new { key = ViewBag.Message }, new { @class = "btn btn-default" })
+
